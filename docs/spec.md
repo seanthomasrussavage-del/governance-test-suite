@@ -105,12 +105,14 @@ def test_hitl_required():
     assert router.route("normal message") != "HITL_REQUIRED"
     assert router.route("needs approve") == "HITL_REQUIRED"
 
+### 5.2 — No Silent Evolution
 def test_no_silent_evolution():
     agent = DummyAgent()
     baseline = agent.signature()
     agent._internal_state["role"] = "modified"
     assert agent.signature() == baseline
 
+### 5.3 — Unauthorized Escalation Prevention
 def test_agent_cannot_modify_governance():
     agent = ValidationAgent()
     with pytest.raises(UnauthorizedGovernanceEscalation):
